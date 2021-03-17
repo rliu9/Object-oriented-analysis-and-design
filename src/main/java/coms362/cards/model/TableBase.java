@@ -10,14 +10,12 @@ import coms362.cards.abstractcomp.Player;
 import coms362.cards.abstractcomp.Table;
 
 /**
- * 
  * The game-independent portion of the game state. 
  * New state and operations should be added by subclassing this base or 
  * by otherwise creating a game-specific replacement. Changing the api or 
  * behavior of this class is apt to break other games. 
  * 
  * @author Robert Ward
- *
  */
 public class TableBase implements Table {
 	
@@ -37,7 +35,7 @@ public class TableBase implements Table {
 	}
 	
 	public void addPile(Pile pile) {
-		piles.put(pile.getName(), pile);
+		piles.put(pile.selector, pile);
 	}
 
 	public void addPlayer(Player p) {
@@ -56,14 +54,14 @@ public class TableBase implements Table {
 	public void removeFromPile(String name, Card c) {
 		Pile target = piles.get(name);
 		if (target != null){
-			target.cards.remove(c.getId());
+			target.cards.remove(c.getRemoteId());
 		}
 	}
 
 	public void addToPile(String name, Card c) {
 		Pile target = piles.get(name);
 		if (target != null){
-			target.cards.put(c.getId(), c);
+			target.cards.put(c.getRemoteId(), c);
 		}
 	}
 

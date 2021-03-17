@@ -10,10 +10,10 @@ public class HideCardRemote implements Marshalls {
 		this.c = c;
 	}
 	public String marshall() {
-		return String.format("allCards[%d].hideCard();", c.getId());
+        return String.format("cards362.getById(\'%s\').hideCard();", c.getRemoteId());
 	}
 	public String stringify() {
-		return "HideCardRemote card = "+ c.getId();
+		return "HideCardRemote card = "+ c.getRemoteId();
 	}
 
 }

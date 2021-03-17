@@ -16,11 +16,15 @@ import coms362.cards.events.inbound.InitGameEvent;
 import coms362.cards.events.inbound.NewPartyEvent;
 import coms362.cards.events.inbound.SetQuorumEvent;
 import coms362.cards.model.Card;
+import coms362.cards.model.Pile;
 
 public class P52Rules extends RulesDispatchBase
 implements Rules, RulesDispatch {
+    
+    public static final String RANDOM_PILE = "randomPile";
+    public static final String DISCARD_PILE = "discardPile";
 	
-	public P52Rules(){
+	public P52Rules() {
 		registerEvents();
 	}
 	 
@@ -28,13 +32,14 @@ implements Rules, RulesDispatch {
 		return nextE.dispatch(this, table, player);
 	}
 	
-
 	public Move apply(CardEvent e, Table table, Player player){	
-		Card c = table.getPile("discardPile").getCard(e.getId());
+		Pile fromPile = table.getPile(RANDOM_PILE);
+		Pile toPile = table.getPile(DISCARD_PILE);
+		Card c = fromPile.getCard(e.getId());
 		if (c == null) {
 			return new DropEventCmd();
 		}
-		return new P52Move(c, player);		
+		return new P52Move(c, player, fromPile, toPile);		
 	}
 	
 	public Move apply(DealEvent e, Table table, Player player){
@@ -42,7 +47,7 @@ implements Rules, RulesDispatch {
 	}
 	
 	public Move apply(InitGameEvent e, Table table, Player player){
-		return new P52InitCmd(table.getPlayerMap(), "Pickup 52 Multiplayer");
+		return new P52InitCmd(table.getPlayerMap(), "Pickup 52 Multiplayer", table);
 	}
 	
 	public Move apply(NewPartyEvent e, Table table, Player player){

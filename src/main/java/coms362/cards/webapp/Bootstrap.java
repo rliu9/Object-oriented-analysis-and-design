@@ -14,12 +14,13 @@ import coms362.cards.streams.InBoundQueue;
 import coms362.cards.streams.RemoteTableGateway;
 
 /**
- * This class is responsible for launching the embedded webserver, and setting up resources the
- * webserver and the main app will require.
+ * This class is responsible for launching the embedded webserver and setting up resources the
+ * webserver and the main app require.
  * 
  * Aside from possibly adding an event to registerGameRules, students should not normally need to
  * change any of this code.
  * 
+ * @author tancreti
  */
 public class Bootstrap {
 
@@ -38,12 +39,8 @@ public class Bootstrap {
     private static WebappConfig webappConfigs[] = {cardsConfig};
     private Server server;
 
-
     public static void main(String[] args) throws Exception {
-
         Bootstrap cardApp = new Bootstrap();
-
-
 
         try {
             cardApp.configWebapps(webappConfigs);
@@ -55,7 +52,6 @@ public class Bootstrap {
             System.err.println("ERROR starting app server");
             e.printStackTrace();
         }
-
     }
 
     public Bootstrap() {

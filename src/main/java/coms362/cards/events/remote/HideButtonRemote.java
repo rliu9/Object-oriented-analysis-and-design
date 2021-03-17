@@ -1,4 +1,4 @@
-package coms362.cards.fiftytwo;
+package coms362.cards.events.remote;
 
 import coms362.cards.streams.Marshalls;
 

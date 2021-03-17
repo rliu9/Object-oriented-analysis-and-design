@@ -11,8 +11,9 @@ public class CreateButtonRemote implements Marshalls {
     }
 
     public String marshall() {
-        return String.format("cards362.createButton('%s', '%s', '%s', %d, %d);\n", button.getRemoteId(),
-                button.getEvtName(), button.getLabel(), button.getLocation().getX(),
+        return String.format("cards362.createButton('%s', '%s', '%s', %d, %d);\n",
+                button.getRemoteId(), button.getEvtName(), button.getLabel(),
+                button.getLocation().getX(),
                 button.getLocation().getY());
     }
 

@@ -14,9 +14,8 @@ public class SocketMessage implements Parameters {
     public SocketMessage(String message, int socketHash) {
     	System.out.println("Creating SocketEvent from json="+message);
     	socketId = socketHash;
-    	JSON json = JSON.getDefault();
         try {
-            map = (Map) json.parse(message);
+            map = (Map) JSON.parse(message);
         } catch (Exception e) {
             // ignore
         } finally {

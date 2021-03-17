@@ -5,7 +5,6 @@ import java.lang.reflect.Method;
 
 import org.eclipse.jetty.websocket.common.WebSocketSession;
 
-import coms362.cards.events.inbound.ConnectEvent;
 import coms362.cards.events.inbound.Event;
 import coms362.cards.events.inbound.EventUnmarshallers;
 import coms362.cards.socket.CardSocket;
@@ -32,9 +31,6 @@ public class EventConsumer implements CardSocketListener {
         QueryParams params = new QueryParams(session.getRequestURI().getQuery());
         params.put("event","ConnectEvent");
         onReceive(new SocketMessage(params.toMap(), cardSocket.hashCode()));
-        		
-        
-        
     }
 
     public void onReceive(SocketMessage event) {
@@ -89,4 +85,5 @@ public class EventConsumer implements CardSocketListener {
         RemoteTableGateway.getInstance().setSocket(cardSocket.getRemote());
         RemoteTableGateway.getInstance().registerSocket(""+cardSocket.hashCode(), cardSocket.getRemote());
     }
+
 }

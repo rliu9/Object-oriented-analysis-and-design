@@ -10,32 +10,27 @@ import java.util.Map;
  * 
  * @author Robert Ward
  */
-public class Pile {
+public class Pile extends PresentationObject {
 
-	public String name;
-	public String visible;
-	public Map<Integer, Card> cards = new HashMap<Integer, Card>();
-	private Location loc = new Location(0,0);
-	
-	public Pile (String name, Location loc){
-		this.name = name;
-		this.loc = loc;
-	}
+    public String visible;
+    public Map<String, Card> cards = new HashMap<String, Card>();
+    private Location loc = new Location(0,0);
+    
+    public Pile (String selector, Location loc){
+        super(selector);
+        this.loc = loc;
+    }
 
-	public Location getLocation() {
-		return loc;
-	}
-	
-	public void addCard(Card c){
-		cards.put(c.getId(), c);
-	}
+    public Location getLocation() {
+        return loc;
+    }
+    
+    public void addCard(Card c) {
+        cards.put(c.getRemoteId(), c);
+    }
 
-	public Card getCard(String id) {
-		return cards.get(new Integer(id));
-	}
-
-	public String getName() {
-		return name;
-	}
+    public Card getCard(String id) {
+        return cards.get(id);
+    }
 
 }

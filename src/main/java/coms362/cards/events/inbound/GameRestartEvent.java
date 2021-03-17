@@ -8,14 +8,15 @@ import coms362.cards.socket.SocketMessage;
 
 public class GameRestartEvent implements Event, EventFactory {
 
-	public static final String kId = "GameRestart";
+    public static final String kId = "GameRestart";
 
-	public static Event createEvent(SocketMessage sktEvent){
-		return new GameRestartEvent();	
-	}
-	
-	@Override
-	public Move dispatch(RulesDispatch rules, Table table, Player player) {
-		return rules.apply(this, table, player);
-	}
+    public static Event createEvent(SocketMessage sktEvent) {
+        return new GameRestartEvent();
+    }
+
+    @Override
+    public Move dispatch(RulesDispatch rules, Table table, Player player) {
+        return rules.apply(this, table, player);
+    }
+
 }

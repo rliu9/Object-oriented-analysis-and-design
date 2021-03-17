@@ -21,7 +21,8 @@ var cards362 = (function() {
 	}
 
 	function createCard(id, suit, rank) {
-		card = new cards.Card(suit, rank, $(opt.rotatablePlane));
+		//card = new cards.Card(suit, rank, $(opt.rotatablePlane));
+		card = new cards.Card(suit, rank, cards.options.table);
 		card.id = id;
 		items[id] = card;
 		return card;
@@ -31,6 +32,12 @@ var cards362 = (function() {
 		deck = new cards.Deck();
 		deck.id = id;
 		items[id] = deck;
+	}
+
+	function createPile(id, faceUp, x, y) {
+		pile = new cards.Deck({faceUp:faceUp, x:x, y:y});
+		pile.id = id;
+		items[id] = pile;
 	}
 
 	function createButton(id, eventName, label, x, y) {
@@ -129,6 +136,7 @@ var cards362 = (function() {
 		init: init,
 		createCard: createCard,
 		createDeck: createDeck,
+		createPile: createPile,
 		createButton: createButton,
 		getById: getById,
 		setPlayerRotation: setPlayerRotation,

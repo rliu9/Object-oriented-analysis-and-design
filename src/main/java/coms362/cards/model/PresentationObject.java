@@ -5,15 +5,21 @@ public class PresentationObject {
 	public final String selector;
 	private String remoteId = ""; 
 	
-	public PresentationObject(String selector){
-		this.selector = selector;
-	}
+	public PresentationObject() {
+        remoteId = Integer.toString(IdGenerator.next());
+        selector = remoteId;
+    }
 	
-	public void setId(String remoteId){
+	public PresentationObject(String selector) {
+	    remoteId = Integer.toString(IdGenerator.next());
+        this.selector = selector;
+    }
+	
+	public void setRemoteId(String remoteId) {
 		this.remoteId = remoteId;
 	}
 	
-	public String getRemoteId(){
+	public String getRemoteId() {
 		if (remoteId.isEmpty()) {
 			throw new IllegalStateException(
 					"prestentation object does not have remote id"
@@ -21,6 +27,5 @@ public class PresentationObject {
 		}
 		return remoteId;
 	}
-	
-	
+
 }

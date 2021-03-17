@@ -14,7 +14,7 @@ public class P52SPPickupRules extends P52Rules {
 
     @Override
     public Move apply(InitGameEvent e, Table table, Player player) {
-        return new P52InitCmd(table.getPlayerMap(), "52 Pickup Single Player");
+        return new P52InitCmd(table.getPlayerMap(), "52 Pickup Single Player", table);
     }
 
     @Override

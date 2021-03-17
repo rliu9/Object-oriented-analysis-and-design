@@ -8,18 +8,18 @@ public class Deck extends Pile {
 	//remote varName
 	//shuffle
 	
-	public Deck ( String name, Location loc) {
-		super( name, loc);
-        for (String suit : Card.suits) {
+	public Deck(String selector, Location loc) {
+		super(selector, loc);
+        for (String suit: Card.suits) {
             for (int i = 1; i <= 13; i++) {
-                Card card = new Card();
+                Card card = new Card("");
                 card.setSuit(suit);
-                card.setNumber(i);
+                card.setRank(i);
                 card.setX(loc.x);
                 card.setY(loc.y);
                 card.setRotate(90);
                 card.setFaceUp(false);
-                cards.put(card.getId(), card);
+                cards.put(card.getRemoteId(), card);
             }
         }
 	}

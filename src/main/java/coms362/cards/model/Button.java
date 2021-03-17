@@ -1,19 +1,18 @@
 package coms362.cards.model;
 
 public class Button extends PresentationObject {
-    private String id;
+
     private String evtName;
     private String label;
     private Location location;
 
-    public Button(String selector, String evtName, String label, Location location)
-    {
+    public Button(String selector, String evtName, String label, Location location) {
     	super(selector);
-        this.evtName = evtName;
+    	this.evtName = evtName;
         this.label = label;
         this.location = location;
     }
-
+    
     public String getEvtName() {
         return evtName;
     }
@@ -37,4 +36,5 @@ public class Button extends PresentationObject {
     public void setLocation(Location location) {
         this.location = location;
     }
+
 }

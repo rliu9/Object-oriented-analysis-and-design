@@ -51,7 +51,7 @@ public class TestDealInput {
 		
 		// initialize the local model for Pu52 match
 		Table table = new TableBase(new P52MPGameFactory());
-		Move move = new P52InitCmd(players, "" );
+		Move move = new P52InitCmd(players, "", table);
 		move.apply(table);
 		Rules rules = new P52Rules();
 		

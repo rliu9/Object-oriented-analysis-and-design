@@ -1,26 +1,38 @@
 package coms362.cards.events.remote;
 
 import coms362.cards.model.Card;
+import coms362.cards.model.Pile;
 import coms362.cards.streams.Marshalls;
 
 public class RemoveFromPileRemote implements Marshalls {
 
+    private Pile p;
 	private Card c;
 
-	public RemoveFromPileRemote(String string, Card c) {
+	public RemoveFromPileRemote(Pile p, Card c) {
+	    this.p = p;
 		this.c = c;
 	}
 
 	public String marshall() {
-		return String.format(
-			"discardPile.addCard(allCards[%d]);\n"
-			+ "discardPile.render();\n", 
-			c.getId()
-		);
+	       /*
+        return String.format(
+            "discardPile.removeCard(cards362.getById(['%s']));\n"
+            + "discardPile.render();\n", 
+            c.getRemoteId()
+        );
+        */
+        return String.format(
+                "pile = cards362.getById(\'%s\');"
+                + "pile.removeCard(cards362.getById('%s'));\n"
+                + "pile.render();\n", 
+                p.getRemoteId(),
+                c.getRemoteId()
+            );
 	}
 
 	public String stringify() {
-		return "RemoveFromPileRemote card = "+c.getId();
+		return "RemoveFromPileRemote card = "+c.getRemoteId();
 	}
 
 }

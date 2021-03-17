@@ -3,28 +3,24 @@ package coms362.cards.model;
 /**
  * @author Robert Ward
  */
-
 // TODO: replace x,y with Location object.
-public class Card {
-
-    private static int serialId = 0;
-
+public class Card extends PresentationObject {
+    
     public static final String suits[] = {"h", "s", "d", "c"};
 
     private String suit;
-    private int number;
-    private int id;
+    private int rank;
     private int x;
     private int y;
     private int rotate;
     private boolean faceUp;
 
     public Card() {
-        id = ++serialId;
+        super();
     }
-
-    public int getId() {
-        return id;
+    
+    public Card(String selector) {
+        super(selector);
     }
 
     public int getX() {
@@ -67,11 +63,12 @@ public class Card {
         this.suit = suit;
     }
 
-    public int getNumber() {
-        return number;
+    public int getRank() {
+        return rank;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setRank(int rank) {
+        this.rank = rank;
     }
+
 }

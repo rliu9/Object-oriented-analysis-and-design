@@ -6,13 +6,12 @@ import coms362.cards.abstractcomp.RulesDispatch;
 import coms362.cards.abstractcomp.Table;
 
 /**
- * 
- * Abstract, game-independent handle for all inBound events
+ * Abstract, game-independent handle for all inBound events.
  * 
  * @author Robert
  */
 public interface Event {
-    
-	public Move dispatch (RulesDispatch rules, Table table, Player player);
+
+    public Move dispatch(RulesDispatch rules, Table table, Player player);
 
 }
