@@ -15,3 +15,5 @@
 *.zip
 *.tar.gz
 *.rar
+.settings/
+.idea/
