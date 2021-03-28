@@ -1,4 +1,4 @@
-<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>352</x><y>140</y><w>560</w><h>200</h></coordinates><panel_attributes>GameController
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>352</x><y>18</y><w>560</w><h>200</h></coordinates><panel_attributes>GameController
 --
 -inQ:InBoundQ
 -remote:RemoteTableGateway
@@ -12,7 +12,7 @@
 +apply(e:InvalidGameSelection, game:PregameSetup)
 +apply(e:NewPartyEvent, game:PregameSetup)
 +apply(endPlay:EndPlay, game2:PregameSetup)
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>62</x><y>170</y><w>210</w><h>150</h></coordinates><panel_attributes>InBoundQueue
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>62</x><y>48</y><w>210</w><h>150</h></coordinates><panel_attributes>InBoundQueue
 --
 -serialVersionUID:long
 -pushBack:Stack&lt;Event&gt;
@@ -21,17 +21,17 @@
 +add(e: Event): boolean
 +take(): Event
 +pushBack(e: Event)
-+isEmpty(): boolean</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>232</x><y>780</y><w>480</w><h>120</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
++isEmpty(): boolean</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>232</x><y>658</y><w>480</w><h>120</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
 GameFactory
 --
 +createRules(): Rules
 +createTable(): Table
 +createPlayerFactory(): PlayerFactory
 +createPlayer(position: Integer, socketId: String)
-+createView(role:PlayerRole, num: Integer, socketId: String, gw: RemoteTableGateway)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>162</x><y>960</y><w>300</w><h>70</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
++createView(role:PlayerRole, num: Integer, socketId: String, gw: RemoteTableGateway)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>162</x><y>838</y><w>300</w><h>70</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
 Rules
 --
-+eval(nextE: Event, table: Table, player: Player): Move</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>512</x><y>960</y><w>230</w><h>330</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
++eval(nextE: Event, table: Table, player: Player): Move</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>512</x><y>838</y><w>230</w><h>330</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
 Table
 --
 +addPile(pile: Pile)
@@ -52,7 +52,7 @@ Table
 +getPlayerMap(): Map&lt;Integer, Player&gt;
 +createPlayer(pos: Integer, socketId:String)
 +lookupPlayer(socketId: String): Player
-+getPlayer(pos: Integer): Player</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>372</x><y>400</y><w>210</w><h>130</h></coordinates><panel_attributes>PregameSetup
++getPlayer(pos: Integer): Player</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>372</x><y>278</y><w>210</w><h>130</h></coordinates><panel_attributes>PregameSetup
 --
 -isSelected:boolean
 -selected:String
@@ -61,9 +61,9 @@ Table
 +setSelected(selector:String)
 +getSelection(): String
 +partiesReady(): boolean
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>462</x><y>330</y><w>70</w><h>90</h></coordinates><panel_attributes>lt=&lt;..
-creates</panel_attributes><additional_attributes>10;70;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>262</x><y>220</y><w>110</w><h>40</h></coordinates><panel_attributes>lt=&lt;..
-uses</panel_attributes><additional_attributes>10;20;90;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>342</x><y>590</y><w>270</w><h>120</h></coordinates><panel_attributes>GameFactoryFactory
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>462</x><y>208</y><w>70</w><h>90</h></coordinates><panel_attributes>lt=&lt;..
+creates</panel_attributes><additional_attributes>10;70;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>262</x><y>98</y><w>110</w><h>40</h></coordinates><panel_attributes>lt=&lt;..
+uses</panel_attributes><additional_attributes>10;20;90;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>342</x><y>468</y><w>270</w><h>120</h></coordinates><panel_attributes>GameFactoryFactory
 --
 -PU52MP: String
 -PU52SP: String
@@ -71,11 +71,11 @@ uses</panel_attributes><additional_attributes>10;20;90;20</additional_attributes
 -supported: List&lt;String&gt;
 --
 +getGameFactory(selector: String): GameFactory
-+isValidSelection(gameId: String): boolean</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>462</x><y>520</y><w>50</w><h>90</h></coordinates><panel_attributes>lt=&lt;..
-uses</panel_attributes><additional_attributes>10;10;10;70</additional_attributes></element><element><id>Relation</id><coordinates><x>460</x><y>703</y><w>50</w><h>100</h></coordinates><panel_attributes>lt=&lt;..
-uses</panel_attributes><additional_attributes>10;10;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>290</x><y>889</y><w>70</w><h>90</h></coordinates><panel_attributes>lt=&lt;..
-creates</panel_attributes><additional_attributes>10;70;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>620</x><y>889</y><w>70</w><h>90</h></coordinates><panel_attributes>lt=&lt;..
-creates</panel_attributes><additional_attributes>10;70;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>272</x><y>1340</y><w>630</w><h>130</h></coordinates><panel_attributes>MatchController
++isValidSelection(gameId: String): boolean</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>462</x><y>398</y><w>50</w><h>90</h></coordinates><panel_attributes>lt=&lt;..
+uses</panel_attributes><additional_attributes>10;10;10;70</additional_attributes></element><element><id>Relation</id><coordinates><x>460</x><y>581</y><w>50</w><h>100</h></coordinates><panel_attributes>lt=&lt;..
+uses</panel_attributes><additional_attributes>10;10;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>290</x><y>767</y><w>70</w><h>90</h></coordinates><panel_attributes>lt=&lt;..
+creates</panel_attributes><additional_attributes>10;70;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>620</x><y>767</y><w>70</w><h>90</h></coordinates><panel_attributes>lt=&lt;..
+creates</panel_attributes><additional_attributes>10;70;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>272</x><y>1218</y><w>630</w><h>130</h></coordinates><panel_attributes>MatchController
 --
 -inQ:InBoundQ
 -rules:Rules
@@ -84,8 +84,8 @@ creates</panel_attributes><additional_attributes>10;70;10;10</additional_attribu
 --
 +MatchController(inQ:InBoundQueue, table:Table, rules:Rules, remote:RemoteTableGateway, factory:GameFactory)
 +start()
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>772</x><y>330</y><w>70</w><h>1030</h></coordinates><panel_attributes>lt=&lt;..
-creates</panel_attributes><additional_attributes>10;1010;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>620</x><y>1279</y><w>50</w><h>80</h></coordinates><panel_attributes>lt=..&gt;
-uses</panel_attributes><additional_attributes>10;60;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>290</x><y>1019</y><w>50</w><h>340</h></coordinates><panel_attributes>lt=..&gt;
-uses</panel_attributes><additional_attributes>10;320;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>460</x><y>889</y><w>50</w><h>470</h></coordinates><panel_attributes>lt=..&gt;
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>772</x><y>208</y><w>70</w><h>1030</h></coordinates><panel_attributes>lt=&lt;..
+creates</panel_attributes><additional_attributes>10;1010;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>620</x><y>1157</y><w>50</w><h>80</h></coordinates><panel_attributes>lt=..&gt;
+uses</panel_attributes><additional_attributes>10;60;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>290</x><y>897</y><w>50</w><h>340</h></coordinates><panel_attributes>lt=..&gt;
+uses</panel_attributes><additional_attributes>10;320;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>460</x><y>767</y><w>50</w><h>470</h></coordinates><panel_attributes>lt=..&gt;
 uses</panel_attributes><additional_attributes>10;450;10;10</additional_attributes></element></diagram>
