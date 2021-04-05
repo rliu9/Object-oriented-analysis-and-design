@@ -6,7 +6,7 @@ public class SetGameTitleRemote implements Marshalls {
 	
 	private String title = "";
 	
-	public SetGameTitleRemote(String newTitle){
+	public SetGameTitleRemote(String newTitle) {
 		title = newTitle;
 	}
 

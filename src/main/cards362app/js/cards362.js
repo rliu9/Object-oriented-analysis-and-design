@@ -78,13 +78,15 @@ var cards362 = (function() {
 			.click(function() { doSend(JSON.stringify({event: eventName, id: id})); })
 			.appendTo($(opt.fixedPlane));
 		},
-
 		setLocation: function(x, y) {
 			$(this.el).css({left: x, top: y});
 		},
 		hide: function() {
 			$(this.el).hide();
-		}
+        },
+        show: function() {
+            $(this.el).show();
+        }
 	}		
 
 	cards.Card.prototype.setFixed = function(fixed) {
@@ -131,6 +133,21 @@ var cards362 = (function() {
 
 	};
 
+    cards.Container.prototype.addCardBottom = function(c) {
+        this.addCardsBottom([c]);
+    }
+
+    cards.Container.prototype.addCardsBottom = function(cards) {
+        for (var i = 0; i < cards.length;i++) {
+            var card = cards[i];
+            if (card.container) {
+                card.container.removeCard(card);
+            }
+            this.unshift(card);
+            card.container = this;
+        }
+    }
+
 	return {
 		options: opt,
 		init: init,
@@ -147,4 +164,3 @@ var cards362 = (function() {
 if (typeof module !== 'undefined') {
     module.exports = cards362;
 }
-

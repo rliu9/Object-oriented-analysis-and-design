@@ -14,27 +14,18 @@ public class CreatePileRemote implements Marshalls {
 	
 	public String marshall() {
         Location loc = p.getLocation();
-        /*
-        return String.format(
-            "%s = new cards.Deck({faceUp:%b, x:%d, y:%d});",
-            p.name,
-            p.visible,
-            loc.getX(),
-            loc.getY()
-        );
-        */
         
         return String.format(
                 "cards362.createPile(\'%s\', %b, %d, %d);",
                 p.getRemoteId(),
-                p.visible,
+                p.getFaceUp(),
                 loc.getX(),
                 loc.getY()
             );
 	}
 
 	public String stringify() {
-		return "CreatePile p="+p.getRemoteId();
+		return "CreatePile p=" + p.getRemoteId();
 	}
 
 }

@@ -26,13 +26,13 @@ public class P52Move implements Move {
 		this.toPile = toPile;
 	}
 	
-	public void apply(Table table){
+	public void apply(Table table) {
 		table.removeFromPile(P52Rules.RANDOM_PILE, c);
 		table.addToPile(P52Rules.DISCARD_PILE, c);
 		table.addToScore(p, 1);
 	}
 	
-	public void apply(ViewFacade view){
+	public void apply(ViewFacade view) {
 		view.send(new HideCardRemote(c));
 		view.send(new RemoveFromPileRemote(fromPile, c));
 		view.send(new AddToPileRemote(toPile, c));
