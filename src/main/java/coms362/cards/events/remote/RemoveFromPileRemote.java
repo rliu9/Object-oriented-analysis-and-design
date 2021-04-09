@@ -15,13 +15,6 @@ public class RemoveFromPileRemote implements Marshalls {
 	}
 
 	public String marshall() {
-	       /*
-        return String.format(
-            "discardPile.removeCard(cards362.getById(['%s']));\n"
-            + "discardPile.render();\n", 
-            c.getRemoteId()
-        );
-        */
         return String.format(
                 "pile = cards362.getById(\'%s\');"
                 + "pile.removeCard(cards362.getById('%s'));\n"

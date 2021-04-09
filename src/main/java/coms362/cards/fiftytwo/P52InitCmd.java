@@ -41,7 +41,7 @@ public class P52InitCmd implements Move {
                     card.setY(random.nextInt(200) + 100);
                     card.setRotate(random.nextInt(360));
                     card.setFaceUp(random.nextBoolean());
-                    randomPile.cards.put(card.selector, card);
+                    randomPile.addCard(card);
                 }
             }
             table.addPile(randomPile);

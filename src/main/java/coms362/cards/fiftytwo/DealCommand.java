@@ -6,7 +6,7 @@ import coms362.cards.abstractcomp.Table;
 import coms362.cards.app.ViewFacade;
 import coms362.cards.events.remote.CreateCardRemote;
 import coms362.cards.events.remote.HideButtonRemote;
-import coms362.cards.events.remote.UpdateRemote;
+import coms362.cards.events.remote.UpdateCardRemote;
 import coms362.cards.model.Card;
 import coms362.cards.model.Pile;
 
@@ -31,10 +31,10 @@ public class DealCommand implements Move {
             if (local == null) {
                 return;
             }
-            for (Card c : local.cards.values()) {
+            for (Card c : local.getCards()) {
                 String outVal = "";
                 views.send(new CreateCardRemote(c));
-                views.send(new UpdateRemote(c));
+                views.send(new UpdateCardRemote(c));
                 System.out.println(outVal);
             }
         } catch (Exception e) {
