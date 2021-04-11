@@ -6,6 +6,7 @@ import java.util.List;
 import coms362.cards.abstractcomp.GameFactory;
 import coms362.cards.fiftytwo.P52MPGameFactory;
 import coms362.cards.fiftytwo.sp.P52SPGameFactory;
+import coms362.cards.fiftytwo.P52SlapjackGameFactory;
 
 public class GameFactoryFactory {
     
@@ -22,7 +23,7 @@ public class GameFactoryFactory {
         } else if (selector.equals(PU52SP)) {
             return new P52SPGameFactory();
         } else if (selector.equals(Slapjack)) {
-            return new P52SPGameFactory();
+            return new P52SlapjackGameFactory();
         }
         return null;
     }

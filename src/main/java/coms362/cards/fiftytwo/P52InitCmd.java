@@ -29,6 +29,7 @@ public class P52InitCmd implements Move {
 	}
 
 	public void apply(Table table){
+		
 		Pile randomPile = new Pile(P52Rules.RANDOM_PILE, new Location(500,359));
 		Random random = table.getRandom();
         try {
@@ -41,7 +42,7 @@ public class P52InitCmd implements Move {
                     card.setY(random.nextInt(200) + 100);
                     card.setRotate(random.nextInt(360));
                     card.setFaceUp(random.nextBoolean());
-                    randomPile.addCard(card);
+                    randomPile.addCard(card);                   
                 }
             }
             table.addPile(randomPile);
@@ -49,6 +50,8 @@ public class P52InitCmd implements Move {
         } catch (Exception e) {
             e.printStackTrace();
         }
+		 
+        
     }
 
 	public void apply(ViewFacade view) {
