@@ -1,11 +1,13 @@
-package coms362.cards.fiftytwo;
+package coms362.cards.Slapjack;
 
 import coms362.cards.abstractcomp.Move;
 import coms362.cards.abstractcomp.Player;
 import coms362.cards.abstractcomp.Table;
 import coms362.cards.events.inbound.InitGameEvent;
 import coms362.cards.events.inbound.SetQuorumEvent;
-
+import coms362.cards.fiftytwo.P52InitCmd;
+import coms362.cards.fiftytwo.P52Rules;
+import coms362.cards.fiftytwo.SetQuorumCmd;
 import coms362.cards.model.Quorum;
 
 public class P52SlapjackPickupRules extends P52Rules {

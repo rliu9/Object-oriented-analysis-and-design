@@ -1,4 +1,4 @@
-package coms362.cards.fiftytwo;
+package coms362.cards.Slapjack;
 
 import coms362.cards.abstractcomp.Rules;
 import coms362.cards.fiftytwo.P52MPGameFactory;
