@@ -1,4 +1,4 @@
-package coms362.cards.Slapjack;
+package coms362.cards.slapjack;
 
 import java.util.Map;
 import java.util.Random;

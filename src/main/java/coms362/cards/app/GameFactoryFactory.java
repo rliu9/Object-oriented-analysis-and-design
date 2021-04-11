@@ -5,7 +5,7 @@ import java.util.List;
 
 import coms362.cards.abstractcomp.GameFactory;
 import coms362.cards.fiftytwo.P52MPGameFactory;
-import coms362.cards.fiftytwo.Slapjack.P52SlapjackGameFactory;
+import coms362.cards.slapjack.P52SlapjackGameFactory;
 import coms362.cards.fiftytwo.sp.P52SPGameFactory;
 
 
