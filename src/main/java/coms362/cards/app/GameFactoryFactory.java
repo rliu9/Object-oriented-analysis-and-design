@@ -12,14 +12,16 @@ public class GameFactoryFactory {
     // TODO: list of games is hardcoded for now
     static final String PU52MP = "PU52MP";
     static final String PU52SP = "PU52SP";
-
-    String gameIds[] = {PU52MP, PU52SP};
+    static final String Slapjack = "Slapjack";
+    String gameIds[] = {PU52MP, PU52SP,Slapjack};
     List<String> supported = Arrays.asList(gameIds);
 
     public GameFactory getGameFactory(String selector) {
         if (selector.equals(PU52MP)) {
             return new P52MPGameFactory();
         } else if (selector.equals(PU52SP)) {
+            return new P52SPGameFactory();
+        } else if (selector.equals(Slapjack)) {
             return new P52SPGameFactory();
         }
         return null;
