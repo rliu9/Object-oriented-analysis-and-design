@@ -1,4 +1,4 @@
-package coms362.cards.fiftytwo.sp;
+package coms362.cards.fiftytwo.Slapjack;
 
 import coms362.cards.abstractcomp.Move;
 import coms362.cards.abstractcomp.Player;
