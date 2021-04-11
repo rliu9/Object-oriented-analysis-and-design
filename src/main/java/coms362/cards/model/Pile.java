@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public class Pile extends PresentationObject {
 
-    protected Map<String, Card> cards = new HashMap<String, Card>();
+    public Map<String, Card> cards = new HashMap<String, Card>();
     private boolean faceUp;
     private Location loc = new Location(0,0);
     
