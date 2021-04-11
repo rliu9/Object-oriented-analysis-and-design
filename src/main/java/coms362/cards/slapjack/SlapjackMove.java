@@ -7,14 +7,14 @@ import coms362.cards.app.ViewFacade;
 import coms362.cards.model.Card;
 import coms362.cards.model.Pile;
 
-public class P52SlapjackMove implements Move{
+public class SlapjackMove implements Move{
 
 	private Card c;
 	private Player p;
 	private Pile fromPile;
 	private Pile toPile;
 	
-	public P52SlapjackMove(Card c, Player p, Pile fromPile, Pile toPile){
+	public SlapjackMove(Card c, Player p, Pile fromPile, Pile toPile){
 		this.c = c;
 		this.p = p;
 		this.fromPile = fromPile;
@@ -23,7 +23,7 @@ public class P52SlapjackMove implements Move{
 	@Override
 	public void apply(Table table) {
 		// TODO Auto-generated method stub
-		
+		Pile center = table.getPile(SlapjackRules.center_Pile);
 	}
 
 	@Override

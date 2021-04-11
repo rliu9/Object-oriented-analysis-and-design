@@ -18,7 +18,7 @@ import coms362.cards.model.Card;
 import coms362.cards.model.Location;
 import coms362.cards.model.Pile;
 
-public class P52SlapjackInitCmd implements Move{
+public class SlapjackInitCmd implements Move{
 
 	public Map<Integer, Player> players;
 	Table table;
@@ -26,7 +26,7 @@ public class P52SlapjackInitCmd implements Move{
 	Pile p2;
 	String title_name = "COMS362 Slapjack Game";
 	
-	public P52SlapjackInitCmd(Map<Integer, Player> players, Table table) {
+	public SlapjackInitCmd(Map<Integer, Player> players, Table table) {
 		this.players = players;
 		this.p1 = new Pile("player1", new Location(300, 500));
 		this.p2 = new Pile("player2", new Location(300, 100));

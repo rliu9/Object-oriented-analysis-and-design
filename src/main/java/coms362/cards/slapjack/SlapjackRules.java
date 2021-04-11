@@ -24,14 +24,14 @@ import coms362.cards.model.Card;
 import coms362.cards.model.Pile;
 import coms362.cards.model.Quorum;
 
-public class P52SlapjackPickupRules extends RulesDispatchBase
+public class SlapjackRules extends RulesDispatchBase
 implements Rules, RulesDispatch  {
 	
     public static final String player1_pile = "player1Pile";
     public static final String player2_pile = "player2Pile";
     public static final String center_Pile = "centerPile";
     
-    public P52SlapjackPickupRules() {
+    public SlapjackRules() {
     	registerEvents();
     }
     

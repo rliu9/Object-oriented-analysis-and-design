@@ -15,10 +15,10 @@ import coms362.cards.model.Card;
 import coms362.cards.model.Location;
 import coms362.cards.model.Pile;
 
-public class P52SlapjackDeal implements Move{
+public class SlapjackDeal implements Move{
 	Player players;
 	Table table;
-	public P52SlapjackDeal(Table table, Player players) {
+	public SlapjackDeal(Table table, Player players) {
 		this.table = table;;
 		this.players = players;
 	}
