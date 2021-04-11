@@ -10,11 +10,11 @@ import coms362.cards.fiftytwo.P52Rules;
 import coms362.cards.fiftytwo.SetQuorumCmd;
 import coms362.cards.model.Quorum;
 
-public class P52SPPickupRules extends P52Rules {
+public class P52SlapjackPickupRules extends P52Rules {
 
     @Override
     public Move apply(InitGameEvent e, Table table, Player player) {
-        return new P52InitCmd(table.getPlayerMap(), "52 Pickup Single Player", table);
+        return new P52InitCmd(table.getPlayerMap(), "ComS362 Slapjack Game", table);
     }
 
     @Override
