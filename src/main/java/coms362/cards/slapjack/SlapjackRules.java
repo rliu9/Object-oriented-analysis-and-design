@@ -24,12 +24,18 @@ import coms362.cards.model.Card;
 import coms362.cards.model.Pile;
 import coms362.cards.model.Quorum;
 
+/*
+ * -------------------------------------------not sure
+ * --------------------------------------feel free to edit.
+ */
 public class SlapjackRules extends RulesDispatchBase
 implements Rules, RulesDispatch  {
 	
     public static final String player1_pile = "player1Pile";
     public static final String player2_pile = "player2Pile";
     public static final String center_Pile = "centerPile";
+    public boolean p1_turn = true;
+    public boolean p2_turn = false;
     
     public SlapjackRules() {
     	registerEvents();
@@ -45,17 +51,33 @@ implements Rules, RulesDispatch  {
 		Card c = centerPile.getCard(e.getId());
 		if(player.getPlayerNum() == 1) {
 			Pile toPile = table.getPile(player1_pile);
-			// return new P52SlapMove(); -------------unfinished
+			return new SlapjackMove(c, player, centerPile, toPile);
+		}else if (player.getPlayerNum() == 2) {
+			Pile toPile = table.getPile(player2_pile);
+			return new SlapjackMove(c, player, centerPile, toPile);
 		}
-		// return new P52Move(c, player, fromPile, toPile);	
-		return null;
+		if(this.p1_turn && player.getPlayerNum() == 1) {
+			Pile fromPile = table.getPile(player1_pile);
+			c = fromPile.getCard(e.getId());
+			this.p1_turn = false;
+			this.p2_turn = true;
+			return new SlapjackMove(c, player, fromPile, centerPile);
+		}
+		else if(this.p2_turn && player.getPlayerNum() == 2) {
+			Pile fromPile = table.getPile(player1_pile);
+			c = fromPile.getCard(e.getId());
+			this.p1_turn = true;
+			this.p2_turn = false;
+			return new SlapjackMove(c, player, fromPile, centerPile);
+		}
+		return new DropEventCmd();
 	}
 	
 	public Move apply(DealEvent e, Table table, Player player){
 		return new DealCommand(table, player);
 	}
     
-    // Copy from P52Rules
+    //  from P52Rules
 	public Move apply(ConnectEvent e, Table table, Player player){
 		Move rval = new DropEventCmd(); 
 		System.out.println("Rules apply ConnectEvent "+e);
