@@ -12,13 +12,12 @@ import coms362.cards.events.remote.ShowPlayerScore;
 import coms362.cards.model.Card;
 import coms362.cards.model.Pile;
 
-public class SlapjackMove implements Move{
-
+public class SlapjackMove implements Move {
+	
 	private Card c;
 	private Player p;
 	private Pile fromPile;
 	private Pile toPile;
-	private String s = "";
 	
 	public SlapjackMove(Card c, Player p, Pile fromPile, Pile toPile){
 		this.c = c;
@@ -26,25 +25,17 @@ public class SlapjackMove implements Move{
 		this.fromPile = fromPile;
 		this.toPile = toPile;
 	}
+	
 	@Override
 	public void apply(Table table) {
 		// TODO Auto-generated method stub
-		Pile center = table.getPile(SlapjackRules.center_Pile);
-		if(center.getCard(c.getRemoteId()) != null) {
-			for(Card cards : center.getCards()){
-				table.removeFromPile(SlapjackRules.center_Pile, cards);
-				table.addToPile(s, cards);
-				table.addToScore(p, 1);
-			}
-		}else {
-			table.removeFromPile(s, c);
-			table.addToPile(SlapjackRules.center_Pile, c);
-			table.addToScore(p, -1);
-		}
+		//Pile center = table.getPile(SlapjackRules.center_pile);
+		table.removeFromPile(SlapjackRules.center_pile, c);
+		table.addToPile(toPile.selector, c);
+		table.addToScore(p, 1);
 	}
 
-	// from P52Move
-	@Override
+	
 	public void apply(ViewFacade view) {
 		view.send(new HideCardRemote(c));
 		view.send(new RemoveFromPileRemote(fromPile, c));

@@ -13,29 +13,27 @@ import coms362.cards.events.remote.SetBottomPlayerTextRemote;
 import coms362.cards.events.remote.SetGameTitleRemote;
 import coms362.cards.events.remote.SetupTable;
 import coms362.cards.fiftytwo.DealButton;
-import coms362.cards.fiftytwo.P52Rules;
 import coms362.cards.model.Card;
 import coms362.cards.model.Location;
 import coms362.cards.model.Pile;
 
-public class SlapjackInitCmd implements Move{
-
-	public Map<Integer, Player> players;
-	Table table;
+public class SlapjackInitCmd implements Move {
+    
+    private Table table;
+	private Map<Integer, Player> players;
+	private String title;
 	Pile p1;
 	Pile p2;
-	String title_name = "";
 	
-	public SlapjackInitCmd(Map<Integer, Player> players, String title, Table table) {
+	public SlapjackInitCmd(Map<Integer, Player> players, String game, Table table) {
 		this.players = players;
 		this.p1 = new Pile("player1", new Location(300, 500));
 		this.p2 = new Pile("player2", new Location(300, 100));
+		this.title = game;
 		this.table = table;
-		this.title_name = title;
 	}
-	@Override
-	public void apply(Table table) {
-		// TODO Auto-generated method stub
+
+	public void apply(Table table){
 		Random r = table.getRandom();
 		try {
             for (String suit : Card.suits) {
@@ -60,30 +58,34 @@ public class SlapjackInitCmd implements Move{
             
             table.addPile(p1);
             table.addPile(p2);
-            table.addPile(new Pile(SlapjackRules.center_Pile, new Location(300, 300)));
+            table.addPile(new Pile(SlapjackRules.center_pile, new Location(300, 300)));
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-	}
-	@Override
-	public void apply(ViewFacade views) {
-		// TODO Auto-generated method stub
-		views.send(new SetupTable());
-		views.send(new SetGameTitleRemote(title_name));
+		 
+        
+    }
+
+	public void apply(ViewFacade view) {
+		view.send(new SetupTable());
+		view.send(new SetGameTitleRemote(title));
 
 		for (Player p : players.values()){
 			String role = (p.getPlayerNum() == 1) ? "Dealer" : "Player "+p.getPlayerNum();
-			views.send(new SetBottomPlayerTextRemote(role, p));
+			view.send(new SetBottomPlayerTextRemote(role, p));
 		}
 
-		views.send(new CreatePileRemote(table.getPile(SlapjackRules.player1_pile)));
-		views.send(new CreatePileRemote(table.getPile(SlapjackRules.player2_pile)));
-		views.send(new CreatePileRemote(table.getPile(SlapjackRules.center_Pile)));
+		view.send(new CreatePileRemote(table.getPile(SlapjackRules.player1_pile)));
+		view.send(new CreatePileRemote(table.getPile(SlapjackRules.player2_pile)));
+		view.send(new CreatePileRemote(table.getPile(SlapjackRules.center_pile)));
+
 		DealButton dealButton = new DealButton("DEAL", new Location(0, 0));
-		views.register(dealButton); //so we can find it later. 
-		views.send(new CreateButtonRemote(dealButton));
+		view.register(dealButton); //so we can find it later. 
+		view.send(new CreateButtonRemote(dealButton));
 		//view.send(new CreateButtonRemote(Integer.toString(getNextId()), "reset", "RestartGame", "Reset", new Location(500,0)));
 		//view.send(new CreateButtonRemote(Integer.toString(getNextId()), "clear", "ClearTable", "Clear Table", new Location(500,0)));
 	}
 	
 }
+
