@@ -25,10 +25,6 @@ public class SlapjackMove implements Move{
 		this.p = p;
 		this.fromPile = fromPile;
 		this.toPile = toPile;
-		if(p.getPlayerNum() == 1)
-			s = SlapjackRules.player1_pile;
-		else
-			s = SlapjackRules.player2_pile;		
 	}
 	@Override
 	public void apply(Table table) {

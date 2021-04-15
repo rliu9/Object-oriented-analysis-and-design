@@ -10,7 +10,10 @@ import coms362.cards.events.inbound.CardEvent;
 import coms362.cards.events.inbound.ConnectEvent;
 import coms362.cards.events.inbound.DealEvent;
 import coms362.cards.events.inbound.Event;
+import coms362.cards.events.inbound.EventUnmarshallers;
+import coms362.cards.events.inbound.GameRestartEvent;
 import coms362.cards.events.inbound.InitGameEvent;
+import coms362.cards.events.inbound.NewPartyEvent;
 import coms362.cards.events.inbound.SetQuorumEvent;
 import coms362.cards.fiftytwo.CreatePlayerCmd;
 import coms362.cards.fiftytwo.DealCommand;
@@ -34,6 +37,7 @@ implements Rules, RulesDispatch  {
     public static final String player1_pile = "player1Pile";
     public static final String player2_pile = "player2Pile";
     public static final String center_Pile = "centerPile";
+    public String title_name = "Slapjack Game";
     public boolean p1_turn = true;
     public boolean p2_turn = false;
     
@@ -43,35 +47,20 @@ implements Rules, RulesDispatch  {
     
 	@Override
     public Move apply(InitGameEvent e, Table table, Player player) {
-        return new P52InitCmd(table.getPlayerMap(), "COMS362 Slapjack Game", table);
+        return new SlapjackInitCmd(table.getPlayerMap(), this.title_name, table);
     }
 
+	@Override
 	public Move apply(CardEvent e, Table table, Player player){	
-		Pile centerPile = table.getPile(center_Pile);
-		Card c = centerPile.getCard(e.getId());
-		if(player.getPlayerNum() == 1) {
-			Pile toPile = table.getPile(player1_pile);
-			return new SlapjackMove(c, player, centerPile, toPile);
-		}else if (player.getPlayerNum() == 2) {
-			Pile toPile = table.getPile(player2_pile);
-			return new SlapjackMove(c, player, centerPile, toPile);
+		Pile fromPile = table.getPile(player1_pile);
+		Pile toPile = table.getPile(center_Pile);
+		Card c = fromPile.getCard(e.getId());
+		if (c == null) {
+			return new DropEventCmd();
 		}
-		if(this.p1_turn && player.getPlayerNum() == 1) {
-			Pile fromPile = table.getPile(player1_pile);
-			c = fromPile.getCard(e.getId());
-			this.p1_turn = false;
-			this.p2_turn = true;
-			return new SlapjackMove(c, player, fromPile, centerPile);
-		}
-		else if(this.p2_turn && player.getPlayerNum() == 2) {
-			Pile fromPile = table.getPile(player1_pile);
-			c = fromPile.getCard(e.getId());
-			this.p1_turn = true;
-			this.p2_turn = false;
-			return new SlapjackMove(c, player, fromPile, centerPile);
-		}
-		return new DropEventCmd();
+		return new P52Move(c, player, fromPile, toPile);
 	}
+
 	
 	public Move apply(DealEvent e, Table table, Player player){
 		return new DealCommand(table, player);
@@ -92,17 +81,22 @@ implements Rules, RulesDispatch  {
 	
     @Override
 	public Move apply(SetQuorumEvent e, Table table, Player player){
-		return new SetQuorumCmd(e.getQuorum());
-	}
+    	return new SetQuorumCmd(e.getQuorum());	
+    }
     
 	@Override
 	public Move eval(Event nextE, Table table, Player player) {
 		// TODO Auto-generated method stub
-		return null;
+		return nextE.dispatch(this, table, player);
 	}
 
 	private void registerEvents() {
 		// TODO Auto-generated method stub
-		
+		EventUnmarshallers handlers = EventUnmarshallers.getInstance();
+		handlers.registerHandler(InitGameEvent.kId, (Class) InitGameEvent.class); 
+		handlers.registerHandler(DealEvent.kId, (Class) DealEvent.class); 
+		handlers.registerHandler(CardEvent.kId, (Class) CardEvent.class); 
+		handlers.registerHandler(GameRestartEvent.kId, (Class) GameRestartEvent.class); 
+		handlers.registerHandler(NewPartyEvent.kId, (Class) NewPartyEvent.class);
 	}
 }
