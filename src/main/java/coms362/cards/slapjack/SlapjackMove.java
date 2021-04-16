@@ -42,6 +42,12 @@ public class SlapjackMove implements Move {
 		table.addToScore(p, -1); // Points correlate to number of cards in player's pile
 		table.addToPile(toPile.selector, c);
 		table.getPile(SlapjackRules.center_pile).setFaceUp(true);
+		
+		// End match
+		if(p.getScore() == 0)
+		{
+			table.setMatchOver(true);
+		}
 	}
 
 	public void apply(ViewFacade view) {

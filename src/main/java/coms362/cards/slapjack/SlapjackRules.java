@@ -42,6 +42,7 @@ implements Rules, RulesDispatch {
 	}
 	@Override
 	public Move apply(CardEvent e, Table table, Player player){	
+		// Set score to 26 when game begins
 		if(player.getScore() == 0)
 		{
 			table.addToScore(player, 26);
