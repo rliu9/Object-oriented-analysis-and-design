@@ -32,7 +32,7 @@ public class SlapjackInitCmd implements Move {
 		this.title = game;
 		this.table = table;
 	}
-
+	@Override
 	public void apply(Table table){
 		Random r = table.getRandom();
 		this.p1 = new Pile(SlapjackRules.player1_pile, new Location(300, 500));
@@ -56,16 +56,19 @@ public class SlapjackInitCmd implements Move {
                     }else {
                     	card.setX(p2.getLocation().getX());
                     	card.setY(p2.getLocation().getY());
-                    	p2.addCard(card);
+                    	p2.addCard(card);                   	
                     }
+                    
                 }
             }
             
             table.addPile(p1);
-        	//table.getPile(SlapjackRules.player1_pile).setFaceUp(false);
+        	//table.getPile(SlapjackRules.player1_pile).setFaceUp(true);            
             table.addPile(p2);
-            //table.getPile(SlapjackRules.player2_pile).setFaceUp(false);
+            //table.getPile(SlapjackRules.player2_pile).setFaceUp(true);
             table.addPile(center);
+             
+            
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -82,7 +85,7 @@ public class SlapjackInitCmd implements Move {
 			String role = (p.getPlayerNum() == 1) ? "Dealer" : "Player "+p.getPlayerNum();
 			view.send(new SetBottomPlayerTextRemote(role, p));
 		}
-
+		
 		view.send(new CreatePileRemote(table.getPile(SlapjackRules.player1_pile)));
 		view.send(new CreatePileRemote(table.getPile(SlapjackRules.player2_pile)));
 		view.send(new CreatePileRemote(table.getPile(SlapjackRules.center_pile)));

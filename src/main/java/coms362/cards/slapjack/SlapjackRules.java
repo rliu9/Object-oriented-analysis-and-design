@@ -32,15 +32,15 @@ implements Rules, RulesDispatch {
 	public SlapjackRules() {
 		registerEvents();
 	}
-	
+	@Override
 	public Move apply(InitGameEvent e, Table table, Player player){
-		return new SlapjackInitCmd(table.getPlayerMap(), "Slapjck", table);
+		return new SlapjackInitCmd(table.getPlayerMap(), "Slapjack", table);
 	}
-	
+	@Override
 	public Move apply(DealEvent e, Table table, Player player){
 		return new SlapjackDeal(table, player);
 	}
-	
+	@Override
 	public Move apply(CardEvent e, Table table, Player player){	
 		Pile fromPile = table.getPile(player1_pile);
 		Pile toPile = table.getPile(center_pile);
@@ -50,22 +50,22 @@ implements Rules, RulesDispatch {
 		}
 		return new SlapjackMove(c, player, fromPile, toPile);		
 	}
-	
+	@Override
 	public Move apply(NewPartyEvent e, Table table, Player player){
 		if (e.getRole() == PartyRole.player){
 			return new CreatePlayerCmd( e.getPosition(), e.getSocketId());
 		}
 		return new SlapjackDropEventCmd();
 	}
-	
+	@Override
 	public Move apply(SetQuorumEvent e, Table table, Player player){
 		return new SetQuorumCmd(new Quorum(1, 1));
 	}
-	
+	@Override
 	public Move eval(Event nextE, Table table, Player player) {
 		return nextE.dispatch(this, table, player);
 	}
-	
+	@Override
 	public Move apply(ConnectEvent e, Table table, Player player){
 		Move rval = new SlapjackDropEventCmd(); 
 		System.out.println("Rules apply ConnectEvent "+e);
