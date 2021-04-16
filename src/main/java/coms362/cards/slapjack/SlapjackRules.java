@@ -42,13 +42,25 @@ implements Rules, RulesDispatch {
 	}
 	@Override
 	public Move apply(CardEvent e, Table table, Player player){	
-		Pile fromPile = table.getPile(player1_pile);
-		Pile toPile = table.getPile(center_pile);
-		Card c = fromPile.getCard(e.getId());
-		if (c == null) {
-			return new SlapjackDropEventCmd();
+		if(player.getPlayerNum() == 1) {
+			Pile fromPile = table.getPile(player1_pile);
+			Pile toPile = table.getPile(center_pile);
+			Card c = fromPile.getCard(e.getId());
+			if (c == null) {
+				return new SlapjackDropEventCmd();
+			}
+			return new SlapjackMove(c, player, fromPile, toPile);	
 		}
-		return new SlapjackMove(c, player, fromPile, toPile);		
+		else {
+			Pile fromPile2 = table.getPile(player2_pile);
+			Pile toPile2 = table.getPile(center_pile);
+			Card c = fromPile2.getCard(e.getId());
+			if (c == null) {
+				return new SlapjackDropEventCmd();
+			}
+			return new SlapjackMove(c, player, fromPile2, toPile2);	
+		}
+			
 	}
 	@Override
 	public Move apply(NewPartyEvent e, Table table, Player player){
