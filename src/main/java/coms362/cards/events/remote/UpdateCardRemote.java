@@ -15,18 +15,18 @@ public class UpdateCardRemote implements Marshalls {
 		this.c = c;
 	}
 	
-    public String marshall() {
-        return  String.format("card1 = cards362.getById(\'%s\');\n"
-                + "card1.moveTo(%d, %d, 1, null);\n"
-                + "card1.rotate(%d);\n"
-                + "card1.faceUp = %b;\n"
-                + "card1.el.click(cardMouseEvent);\n",
-                c.getRemoteId(),
-                c.getX(), c.getY(),
-                c.getRotate(),
-                c.isFaceUp()
-        );
-    }
+	public String marshall() {
+	    return  String.format("card1 = cards362.getById(\'%s\');\n"
+	        + "card1.moveTo(%d, %d, 1, null);\n"
+	        + "card1.setFaceUp(%b);\n"
+	        + "card1.rotate(%d);\n"
+	        + "card1.el.click(cardMouseEvent);\n",
+	        c.getRemoteId(),
+	        c.getX(), c.getY(),
+	        c.isFaceUp(),
+	        c.getRotate()
+	    );
+	}
     
     public String stringify() {
     	return "UpdateRemoteCard id="+c.getRemoteId();

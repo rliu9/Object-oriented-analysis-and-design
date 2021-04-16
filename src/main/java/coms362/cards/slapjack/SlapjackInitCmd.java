@@ -12,6 +12,7 @@ import coms362.cards.events.remote.CreatePileRemote;
 import coms362.cards.events.remote.SetBottomPlayerTextRemote;
 import coms362.cards.events.remote.SetGameTitleRemote;
 import coms362.cards.events.remote.SetupTable;
+import coms362.cards.events.remote.UpdatePileRemote;
 import coms362.cards.fiftytwo.DealButton;
 import coms362.cards.model.Card;
 import coms362.cards.model.Location;
@@ -51,17 +52,19 @@ public class SlapjackInitCmd implements Move {
                     if(p1.cards.size() <= 26 & n % 2 == 1) {
                     	card.setX(p1.getLocation().getX());
                     	card.setY(p1.getLocation().getY());
-                    	p1.addCard(card);;
+                    	p1.addCard(card);
                     }else {
                     	card.setX(p2.getLocation().getX());
                     	card.setY(p2.getLocation().getY());
-                    	p2.addCard(card);;
+                    	p2.addCard(card);
                     }
                 }
             }
             
             table.addPile(p1);
+        	//table.getPile(SlapjackRules.player1_pile).setFaceUp(false);
             table.addPile(p2);
+            //table.getPile(SlapjackRules.player2_pile).setFaceUp(false);
             table.addPile(center);
 
         } catch (Exception e) {
@@ -83,7 +86,8 @@ public class SlapjackInitCmd implements Move {
 		view.send(new CreatePileRemote(table.getPile(SlapjackRules.player1_pile)));
 		view.send(new CreatePileRemote(table.getPile(SlapjackRules.player2_pile)));
 		view.send(new CreatePileRemote(table.getPile(SlapjackRules.center_pile)));
-
+		//view.send(new UpdatePileRemote(table.getPile(SlapjackRules.player1_pile)));
+		//view.send(new UpdatePileRemote(table.getPile(SlapjackRules.player2_pile)));
 		DealButton dealButton = new DealButton("DEAL", new Location(0, 0));
 		view.register(dealButton); //so we can find it later. 
 		view.send(new CreateButtonRemote(dealButton));
