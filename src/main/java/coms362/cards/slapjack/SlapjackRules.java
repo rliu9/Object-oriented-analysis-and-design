@@ -32,9 +32,13 @@ implements Rules, RulesDispatch {
 	public SlapjackRules() {
 		registerEvents();
 	}
-	 
-	public Move eval(Event nextE, Table table, Player player) {
-		return nextE.dispatch(this, table, player);
+	
+	public Move apply(InitGameEvent e, Table table, Player player){
+		return new SlapjackInitCmd(table.getPlayerMap(), "Slapjck", table);
+	}
+	
+	public Move apply(DealEvent e, Table table, Player player){
+		return new SlapjackDeal(table, player);
 	}
 	
 	public Move apply(CardEvent e, Table table, Player player){	
@@ -47,14 +51,6 @@ implements Rules, RulesDispatch {
 		return new SlapjackMove(c, player, fromPile, toPile);		
 	}
 	
-	public Move apply(DealEvent e, Table table, Player player){
-		return new SlapjackDeal(table, player);
-	}
-	
-	public Move apply(InitGameEvent e, Table table, Player player){
-		return new SlapjackInitCmd(table.getPlayerMap(), "Slapjck", table);
-	}
-	
 	public Move apply(NewPartyEvent e, Table table, Player player){
 		if (e.getRole() == PartyRole.player){
 			return new CreatePlayerCmd( e.getPosition(), e.getSocketId());
@@ -64,6 +60,10 @@ implements Rules, RulesDispatch {
 	
 	public Move apply(SetQuorumEvent e, Table table, Player player){
 		return new SetQuorumCmd(new Quorum(1, 1));
+	}
+	
+	public Move eval(Event nextE, Table table, Player player) {
+		return nextE.dispatch(this, table, player);
 	}
 	
 	public Move apply(ConnectEvent e, Table table, Player player){

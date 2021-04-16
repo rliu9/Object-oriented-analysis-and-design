@@ -24,41 +24,45 @@ public class SlapjackInitCmd implements Move {
 	private String title;
 	Pile p1;
 	Pile p2;
+	Pile center;
 	
 	public SlapjackInitCmd(Map<Integer, Player> players, String game, Table table) {
 		this.players = players;
-		this.p1 = new Pile("player1", new Location(300, 500));
-		this.p2 = new Pile("player2", new Location(300, 100));
 		this.title = game;
 		this.table = table;
 	}
 
 	public void apply(Table table){
 		Random r = table.getRandom();
+		this.p1 = new Pile(SlapjackRules.player1_pile, new Location(300, 500));
+		this.p2 = new Pile(SlapjackRules.player2_pile, new Location(300, 100));
+		this.center = new Pile(SlapjackRules.center_pile, new Location(300, 300));
 		try {
             for (String suit : Card.suits) {
                 for (int i = 1; i <= 13; i++) {
+                	int n = r.nextInt(100);
                     Card card = new Card();
+                    
                     card.setSuit(suit);
                     card.setRank(i);
                     card.setRotate(0);
                     card.setFaceUp(false);
                     
-                    if(p1.cards.size() <= 26) {
+                    if(p1.cards.size() <= 26 & n % 2 == 1) {
                     	card.setX(p1.getLocation().getX());
                     	card.setY(p1.getLocation().getY());
-                    	p1.cards.put(card.getRemoteId(), card);
+                    	p1.addCard(card);;
                     }else {
                     	card.setX(p2.getLocation().getX());
                     	card.setY(p2.getLocation().getY());
-                    	p2.cards.put(card.getRemoteId(), card);
+                    	p2.addCard(card);;
                     }
                 }
             }
             
             table.addPile(p1);
             table.addPile(p2);
-            table.addPile(new Pile(SlapjackRules.center_pile, new Location(300, 300)));
+            table.addPile(center);
 
         } catch (Exception e) {
             e.printStackTrace();

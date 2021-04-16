@@ -30,15 +30,22 @@ public class SlapjackDeal implements Move {
         try {
             String remoteId = views.getRemoteId(DealButton.kSelector);
             views.send(new HideButtonRemote(remoteId));
-            Pile local = table.getPile(P52Rules.RANDOM_PILE);
-            if (local == null) {
+            Pile p1 = table.getPile(SlapjackRules.player1_pile);
+            Pile p2 = table.getPile(SlapjackRules.player2_pile);
+            if (p1 == null || p2 == null) {
                 return;
             }
-            for (Card c : local.getCards()) {
+            for (Card c : p1.getCards()) {
                 String outVal = "";
                 views.send(new CreateCardRemote(c));
                 views.send(new UpdateCardRemote(c));
                 System.out.println(outVal);
+            }
+            for (Card c2 : p2.getCards()) {
+                String outVal2 = "";
+                views.send(new CreateCardRemote(c2));
+                views.send(new UpdateCardRemote(c2));
+                System.out.println(outVal2);
             }
         } catch (Exception e) {
             e.printStackTrace();
