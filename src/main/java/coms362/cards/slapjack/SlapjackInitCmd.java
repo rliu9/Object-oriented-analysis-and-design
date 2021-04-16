@@ -14,6 +14,7 @@ import coms362.cards.events.remote.SetGameTitleRemote;
 import coms362.cards.events.remote.SetupTable;
 import coms362.cards.events.remote.UpdatePileRemote;
 import coms362.cards.fiftytwo.DealButton;
+import coms362.cards.fiftytwo.P52Rules;
 import coms362.cards.model.Card;
 import coms362.cards.model.Location;
 import coms362.cards.model.Pile;
@@ -25,7 +26,6 @@ public class SlapjackInitCmd implements Move {
 	private String title;
 	Pile p1;
 	Pile p2;
-	Pile center;
 	
 	public SlapjackInitCmd(Map<Integer, Player> players, String game, Table table) {
 		this.players = players;
@@ -37,7 +37,7 @@ public class SlapjackInitCmd implements Move {
 		Random r = table.getRandom();
 		this.p1 = new Pile(SlapjackRules.player1_pile, new Location(300, 500));
 		this.p2 = new Pile(SlapjackRules.player2_pile, new Location(300, 100));
-		this.center = new Pile(SlapjackRules.center_pile, new Location(300, 300));
+		
 		try {
             for (String suit : Card.suits) {
                 for (int i = 1; i <= 13; i++) {
@@ -66,7 +66,10 @@ public class SlapjackInitCmd implements Move {
         	//table.getPile(SlapjackRules.player1_pile).setFaceUp(true);            
             table.addPile(p2);
             //table.getPile(SlapjackRules.player2_pile).setFaceUp(true);
-            table.addPile(center);
+            table.addPile(new Pile(SlapjackRules.center_pile, new Location(300,300)));
+            //table.addPile(new Pile(SlapjackRules.center_pile, new Location(500,300)));
+           
+            
              
             
 
@@ -79,11 +82,12 @@ public class SlapjackInitCmd implements Move {
 
 	public void apply(ViewFacade view) {
 		view.send(new SetupTable());
+		
 		view.send(new SetGameTitleRemote(title));
 
 		for (Player p : players.values()){
-			String role = (p.getPlayerNum() == 1) ? "Dealer" : "Player "+p.getPlayerNum();
-			view.send(new SetBottomPlayerTextRemote(role, p));
+			String role1 = (p.getPlayerNum() == 1) ? "Player" : "Player "+p.getPlayerNum();
+			view.send(new SetBottomPlayerTextRemote(role1, p));
 		}
 		
 		view.send(new CreatePileRemote(table.getPile(SlapjackRules.player1_pile)));

@@ -19,7 +19,7 @@ public class SlapjackMove implements Move {
 	private Player p;
 	private Pile fromPile;
 	private Pile toPile;
-	private Table ta;
+	private Table table;
 	
 	public SlapjackMove(Card c, Player p, Pile fromPile, Pile toPile){
 		this.c = c;
@@ -32,7 +32,7 @@ public class SlapjackMove implements Move {
 	public void apply(Table table) {
 		// TODO Auto-generated method stub
 		//Pile center = table.getPile(SlapjackRules.center_pile);
-		this.ta = table;
+		this.table = table;
 		table.removeFromPile(SlapjackRules.center_pile, c);
 		table.addToPile(toPile.selector, c);
 		table.getPile(SlapjackRules.center_pile).setFaceUp(true);
@@ -46,7 +46,7 @@ public class SlapjackMove implements Move {
 		view.send(new AddToPileRemote(toPile, c));
 		view.send(new ShowCardRemote(c));
 		view.send(new ShowPlayerScore(p, null));
-		view.send(new UpdatePileRemote(ta.getPile(SlapjackRules.center_pile)));
+		view.send(new UpdatePileRemote(table.getPile(SlapjackRules.center_pile)));
 	}
 
 }
