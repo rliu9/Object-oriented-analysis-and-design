@@ -26,6 +26,7 @@ public class SlapjackInitCmd implements Move {
 	private String title;
 	Pile p1;
 	Pile p2;
+
 	
 	public SlapjackInitCmd(Map<Integer, Player> players, String game, Table table) {
 		this.players = players;
@@ -35,9 +36,8 @@ public class SlapjackInitCmd implements Move {
 	@Override
 	public void apply(Table table){
 		Random r = table.getRandom();
-		this.p1 = new Pile(SlapjackRules.player1_pile, new Location(300, 500));
-		this.p2 = new Pile(SlapjackRules.player2_pile, new Location(300, 100));
-		
+		p1 = new Pile(SlapjackRules.player1_pile, new Location(300, 500));
+		p2 = new Pile(SlapjackRules.player2_pile, new Location(300, 100));		
 		try {
             for (String suit : Card.suits) {
                 for (int i = 1; i <= 13; i++) {
@@ -53,10 +53,13 @@ public class SlapjackInitCmd implements Move {
                     	card.setX(p1.getLocation().getX());
                     	card.setY(p1.getLocation().getY());
                     	p1.addCard(card);
+                    	
+                    	
                     }else {
                     	card.setX(p2.getLocation().getX());
                     	card.setY(p2.getLocation().getY());
-                    	p2.addCard(card);                   	
+                    	p2.addCard(card);  
+                    	
                     }
                     
                 }
@@ -66,13 +69,8 @@ public class SlapjackInitCmd implements Move {
         	//table.getPile(SlapjackRules.player1_pile).setFaceUp(true);            
             table.addPile(p2);
             //table.getPile(SlapjackRules.player2_pile).setFaceUp(true);
-            table.addPile(new Pile(SlapjackRules.center_pile, new Location(300,300)));
-            //table.addPile(new Pile(SlapjackRules.center_pile, new Location(500,300)));
-           
-            
-             
-            
-
+            table.addPile(new Pile(SlapjackRules.center_pile, new Location(300,400)));
+            //table.addPile(new Pile(SlapjackRules.center_pile, new Location(300,300)));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -82,17 +80,26 @@ public class SlapjackInitCmd implements Move {
 
 	public void apply(ViewFacade view) {
 		view.send(new SetupTable());
+		if(p1.cards.size() == 0){
+			view.send(new SetGameTitleRemote("Player 1 Wins"));
+		}
+		else if (p2.cards.size() == 0) {
+			view.send(new SetGameTitleRemote("Player 2 Wins"));
+		}
+		else {
+			view.send(new SetGameTitleRemote(title));
+		}
 		
-		view.send(new SetGameTitleRemote(title));
-
 		for (Player p : players.values()){
-			String role1 = (p.getPlayerNum() == 1) ? "Player" : "Player "+p.getPlayerNum();
+			String role1 = (p.getPlayerNum() == 1) ? "Player1" : "Player "+p.getPlayerNum();
 			view.send(new SetBottomPlayerTextRemote(role1, p));
 		}
 		
 		view.send(new CreatePileRemote(table.getPile(SlapjackRules.player1_pile)));
 		view.send(new CreatePileRemote(table.getPile(SlapjackRules.player2_pile)));
 		view.send(new CreatePileRemote(table.getPile(SlapjackRules.center_pile)));
+		
+		
 		//view.send(new UpdatePileRemote(table.getPile(SlapjackRules.player1_pile)));
 		//view.send(new UpdatePileRemote(table.getPile(SlapjackRules.player2_pile)));
 		DealButton dealButton = new DealButton("DEAL", new Location(0, 0));
