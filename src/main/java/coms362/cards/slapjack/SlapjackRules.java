@@ -42,6 +42,11 @@ implements Rules, RulesDispatch {
 	}
 	@Override
 	public Move apply(CardEvent e, Table table, Player player){	
+		if(player.getScore() == 0)
+		{
+			table.addToScore(player, 26);
+		}
+		
 		if(player.getPlayerNum() == 1) {
 			Pile fromPile = table.getPile(player1_pile);
 			Pile toPile = table.getPile(center_pile);
