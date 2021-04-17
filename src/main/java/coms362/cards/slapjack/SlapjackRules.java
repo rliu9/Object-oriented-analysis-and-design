@@ -52,19 +52,25 @@ implements Rules, RulesDispatch {
 			Pile fromPile = table.getPile(player1_pile);
 			Pile toPile = table.getPile(center_pile);
 			Card c = fromPile.getCard(e.getId());
-			if (c == null) {
+			Card c2 = toPile.getCard(e.getId());
+			if (c == null && c2.getRank() == 11) {
+				return new SlapMove(c2, player, toPile, fromPile);
+			} else if(c == null) {
 				return new SlapjackDropEventCmd();
 			}
-			return new SlapjackMove(c, player, fromPile, toPile);	
+			return new PlayMove(c, player, fromPile, toPile);	
 		}
 		else {
 			Pile fromPile2 = table.getPile(player2_pile);
 			Pile toPile2 = table.getPile(center_pile);
 			Card c = fromPile2.getCard(e.getId());
-			if (c == null) {
+			Card c2 = toPile2.getCard(e.getId());
+			if (c == null && c2.getRank() == 11) {
+				return new SlapMove(c2, player, toPile2, fromPile2);
+			} else if(c == null) {
 				return new SlapjackDropEventCmd();
 			}
-			return new SlapjackMove(c, player, fromPile2, toPile2);	
+			return new PlayMove(c, player, fromPile2, toPile2);	
 		}
 			
 	}

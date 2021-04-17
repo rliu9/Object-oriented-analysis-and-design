@@ -1,5 +1,7 @@
 package coms362.cards.slapjack;
 
+import java.util.Collection;
+
 import coms362.cards.abstractcomp.Move;
 import coms362.cards.abstractcomp.Player;
 import coms362.cards.abstractcomp.Table;
@@ -13,50 +15,46 @@ import coms362.cards.events.remote.UpdatePileRemote;
 import coms362.cards.model.Card;
 import coms362.cards.model.Pile;
 
-public class SlapjackMove implements Move {
+public class SlapMove implements Move {
 
 	private Card c;
 	private Player p;
 	private Pile fromPile;
 	private Pile toPile;
 	private Table table;
+	private Card[] cards;
 
-	public SlapjackMove(Card c, Player p, Pile fromPile, Pile toPile) {
+	public SlapMove(Card c, Player p, Pile fromPile, Pile toPile) {
 		this.c = c;
 		this.p = p;
 		this.fromPile = fromPile;
 		this.toPile = toPile;
+		cards = new Card[fromPile.getCards().size()];
+		cards = fromPile.getCards().toArray(cards);
 	}
 
 	@Override
 	public void apply(Table table) {
 		this.table = table;
-		
-		// Adjust score from played card
-		if (p.getPlayerNum() == 1) {
-			table.removeFromPile(SlapjackRules.player1_pile, c);
-		} else if (p.getPlayerNum() == 2) {
-			table.removeFromPile(SlapjackRules.player2_pile, c);
+
+		for (int i = 0; i < cards.length; i++) {
+			table.removeFromPile(SlapjackRules.center_pile, c);
+			
+			// Adjust score for card
+			table.addToScore(p, 1); // Points correlate to number of cards in player's pile
+			table.addToPile(toPile.selector, c);
 		}
 
-		table.addToScore(p, -1); // Points correlate to number of cards in player's pile
-		table.addToPile(toPile.selector, c);
-		table.getPile(SlapjackRules.center_pile).setFaceUp(true);
-		
-		// End match
-		if(p.getScore() == 0)
-		{
-			table.setMatchOver(true);
-		}
+		table.getPile(toPile.selector).setFaceUp(false);
 	}
 
 	public void apply(ViewFacade view) {
-		view.send(new HideCardRemote(c));
-		view.send(new RemoveFromPileRemote(fromPile, c));
-		view.send(new AddToPileRemote(toPile, c));
-		view.send(new ShowCardRemote(c));
+		for (int i = 0; i < cards.length; i++) {
+			view.send(new HideCardRemote(cards[i]));
+			view.send(new RemoveFromPileRemote(fromPile, cards[i]));
+			view.send(new AddToPileRemote(toPile, cards[i]));
+		}
 		view.send(new ShowPlayerScore(p, null));
-		view.send(new UpdatePileRemote(table.getPile(SlapjackRules.center_pile)));
 	}
 
 }
