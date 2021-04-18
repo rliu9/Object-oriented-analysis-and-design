@@ -49,7 +49,7 @@ public class SlapjackInitCmd implements Move {
                     card.setRotate(0);
                     card.setFaceUp(false);
                     
-                    if((p1.cards.size() < 26) && (n % 2 == 1)) {
+                    if((p1.cards.size() != 26) && (n % 2 == 1)) {
                     	card.setX(p1.getLocation().getX());
                     	card.setY(p1.getLocation().getY());
                     	p1.addCard(card);

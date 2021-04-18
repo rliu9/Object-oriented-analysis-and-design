@@ -66,10 +66,10 @@ public class PlayMove implements Move {
 		view.send(new UpdatePileRemote(table.getPile(SlapjackRules.center_pile)));
 
 		if(p.getPlayerNum()==1 && p.getScore() == 0) {
-			view.send(new SetGameTitleRemote("Player 1 wins"));
+			view.send(new SetGameTitleRemote("Player 2 wins"));
 		}
 		else if(p.getPlayerNum()==2 && p.getScore() == 0) {
-			view.send(new SetGameTitleRemote("Player 2 wins"));
+			view.send(new SetGameTitleRemote("Player 1 wins"));
 		}
 	}
 
