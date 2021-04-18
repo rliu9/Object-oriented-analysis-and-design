@@ -1,5 +1,6 @@
 package coms362.cards.slapjack;
 
+
 import coms362.cards.abstractcomp.Move;
 import coms362.cards.abstractcomp.Player;
 import coms362.cards.abstractcomp.Table;
@@ -13,6 +14,7 @@ import coms362.cards.events.remote.ShowPlayerScore;
 import coms362.cards.events.remote.UpdatePileRemote;
 import coms362.cards.model.Card;
 import coms362.cards.model.Pile;
+import coms362.cards.model.Location;
 
 public class PlayMove implements Move {
 
@@ -58,7 +60,11 @@ public class PlayMove implements Move {
 		view.send(new AddToPileRemote(toPile, c));
 		view.send(new ShowCardRemote(c));
 		view.send(new ShowPlayerScore(p, null));
+
+		table.getPile(SlapjackRules.center_pile).moveTo(new Location((table.getRandom().nextInt(350)+150),((table.getRandom().nextInt(350)+150))));
+		
 		view.send(new UpdatePileRemote(table.getPile(SlapjackRules.center_pile)));
+
 		if(p.getPlayerNum()==1 && p.getScore() == 0) {
 			view.send(new SetGameTitleRemote("Player 1 wins"));
 		}
@@ -66,5 +72,7 @@ public class PlayMove implements Move {
 			view.send(new SetGameTitleRemote("Player 2 wins"));
 		}
 	}
+
+
 
 }

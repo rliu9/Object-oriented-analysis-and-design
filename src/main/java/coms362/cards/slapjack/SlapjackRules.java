@@ -1,5 +1,4 @@
 package coms362.cards.slapjack;
-
 import coms362.cards.abstractcomp.Move;
 import coms362.cards.abstractcomp.Player;
 import coms362.cards.abstractcomp.Rules;
@@ -48,9 +47,11 @@ implements Rules, RulesDispatch {
 			table.addToScore(player, 26);
 		}
 		
+
 		if(player.getPlayerNum() == 1) {
 			Pile fromPile = table.getPile(player1_pile);
 			Pile toPile = table.getPile(center_pile);
+			
 			Card c = fromPile.getCard(e.getId());
 			Card c2 = toPile.getCard(e.getId());
 			if (c == null && c2.getRank() == 11) {
@@ -72,8 +73,9 @@ implements Rules, RulesDispatch {
 			}
 			return new PlayMove(c, player, fromPile2, toPile2);	
 		}
-			
+		
 	}
+
 	@Override
 	public Move apply(NewPartyEvent e, Table table, Player player){
 		if (e.getRole() == PartyRole.player){

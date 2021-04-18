@@ -46,6 +46,7 @@ public class SlapMove implements Move {
 		}
 
 		table.getPile(toPile.selector).setFaceUp(false);
+		
 	}
 
 	public void apply(ViewFacade view) {
