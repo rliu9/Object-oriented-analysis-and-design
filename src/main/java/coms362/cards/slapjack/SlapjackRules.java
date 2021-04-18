@@ -46,7 +46,6 @@ implements Rules, RulesDispatch {
 		{
 			table.addToScore(player, 26);
 		}
-		
 
 		if(player.getPlayerNum() == 1) {
 			Pile fromPile = table.getPile(player1_pile);
@@ -56,7 +55,10 @@ implements Rules, RulesDispatch {
 			Card c2 = toPile.getCard(e.getId());
 			if (c == null && c2.getRank() == 11) {
 				return new SlapMove(c2, player, toPile, fromPile);
-			} else if(c == null) {
+			} else if(c == null && c2.getRank() >= 0 && c2.getRank() <= 13) {
+				return new SlapMove(c2, table.getPlayer(2), toPile, table.getPile(player2_pile));
+			}
+			else if(c == null) {
 				return new SlapjackDropEventCmd();
 			}
 			return new PlayMove(c, player, fromPile, toPile);	
@@ -68,6 +70,8 @@ implements Rules, RulesDispatch {
 			Card c2 = toPile2.getCard(e.getId());
 			if (c == null && c2.getRank() == 11) {
 				return new SlapMove(c2, player, toPile2, fromPile2);
+			} else if(c == null && c2.getRank() >= 0 && c2.getRank() <= 13) {
+				return new SlapMove(c2, table.getPlayer(1), toPile2, table.getPile(player1_pile));
 			} else if(c == null) {
 				return new SlapjackDropEventCmd();
 			}
