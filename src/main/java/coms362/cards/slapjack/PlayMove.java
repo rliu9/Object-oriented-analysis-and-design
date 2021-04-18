@@ -34,7 +34,7 @@ public class PlayMove implements Move {
 	@Override
 	public void apply(Table table) {
 		this.table = table;
-		
+		table.setQuorum(null);
 		// Adjust score from played card
 		if (p.getPlayerNum() == 1) {
 			table.removeFromPile(SlapjackRules.player1_pile, c);

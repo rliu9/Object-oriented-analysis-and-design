@@ -15,6 +15,7 @@ import coms362.cards.events.inbound.InitGameEvent;
 import coms362.cards.events.inbound.NewPartyEvent;
 import coms362.cards.events.inbound.SetQuorumEvent;
 import coms362.cards.fiftytwo.CreatePlayerCmd;
+import coms362.cards.fiftytwo.DropEventCmd;
 import coms362.cards.fiftytwo.PartyRole;
 import coms362.cards.fiftytwo.SetQuorumCmd;
 import coms362.cards.model.Card;
@@ -27,6 +28,7 @@ implements Rules, RulesDispatch {
     public static final String player1_pile = "player1Pile";
     public static final String player2_pile = "player2Pile";
     public static final String center_pile = "centerPile";
+    public int turn = 1; // player turn
 	
 	public SlapjackRules() {
 		registerEvents();
@@ -47,37 +49,43 @@ implements Rules, RulesDispatch {
 			table.addToScore(player, 26);
 		}
 
-		if(player.getPlayerNum() == 1) {
-			Pile fromPile = table.getPile(player1_pile);
-			Pile toPile = table.getPile(center_pile);
+		if(turn == player.getPlayerNum()) {
+			if(player.getPlayerNum() == 1) {
+				Pile fromPile = table.getPile(player1_pile);
+				Pile toPile = table.getPile(center_pile);
+				
+				Card c = fromPile.getCard(e.getId());
+				Card c2 = toPile.getCard(e.getId());
+				if (c == null && c2.getRank() == 11) {
+					return new SlapMove(c2, player, toPile, fromPile);
+				} else if(c == null && c2.getRank() >= 0 && c2.getRank() <= 13) {
+					return new SlapMove(c2, table.getPlayer(2), toPile, table.getPile(player2_pile));
+				}
+				else if(c == null) {
+					return new SlapjackDropEventCmd();
+				}
+				turn = 2;
+				return new PlayMove(c, player, fromPile, toPile);
+			}
+			else {
+				Pile fromPile2 = table.getPile(player2_pile);
+				Pile toPile2 = table.getPile(center_pile);
+				Card c = fromPile2.getCard(e.getId());
+				Card c2 = toPile2.getCard(e.getId());
+				if (c == null && c2.getRank() == 11) {
+					return new SlapMove(c2, player, toPile2, fromPile2);
+				} else if(c == null && c2.getRank() >= 0 && c2.getRank() <= 13) {
+					return new SlapMove(c2, table.getPlayer(1), toPile2, table.getPile(player1_pile));
+				} else if(c == null) {
+					return new SlapjackDropEventCmd();
+				}
+				turn = 1;
+				return new PlayMove(c, player, fromPile2, toPile2);	
+			}
+		}
 			
-			Card c = fromPile.getCard(e.getId());
-			Card c2 = toPile.getCard(e.getId());
-			if (c == null && c2.getRank() == 11) {
-				return new SlapMove(c2, player, toPile, fromPile);
-			} else if(c == null && c2.getRank() >= 0 && c2.getRank() <= 13) {
-				return new SlapMove(c2, table.getPlayer(2), toPile, table.getPile(player2_pile));
-			}
-			else if(c == null) {
-				return new SlapjackDropEventCmd();
-			}
-			return new PlayMove(c, player, fromPile, toPile);	
-		}
-		else {
-			Pile fromPile2 = table.getPile(player2_pile);
-			Pile toPile2 = table.getPile(center_pile);
-			Card c = fromPile2.getCard(e.getId());
-			Card c2 = toPile2.getCard(e.getId());
-			if (c == null && c2.getRank() == 11) {
-				return new SlapMove(c2, player, toPile2, fromPile2);
-			} else if(c == null && c2.getRank() >= 0 && c2.getRank() <= 13) {
-				return new SlapMove(c2, table.getPlayer(1), toPile2, table.getPile(player1_pile));
-			} else if(c == null) {
-				return new SlapjackDropEventCmd();
-			}
-			return new PlayMove(c, player, fromPile2, toPile2);	
-		}
-		
+		return new DropEventCmd();
+
 	}
 
 	@Override
