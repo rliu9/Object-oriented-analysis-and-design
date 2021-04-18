@@ -60,6 +60,8 @@ implements Rules, RulesDispatch {
 				else if(c2.getRank() == 11) {
 					return new SlapMove(c2, player, toPile, fromPile);
 				}
+				else if(c2.getRank() >= 1 && c2.getRank() <= 13) {
+					return new SlapMove(c2, table.getPlayer(2), toPile, table.getPile(player2_pile));}
 				else
 					return new SlapjackDropEventCmd();
 			}
@@ -67,15 +69,7 @@ implements Rules, RulesDispatch {
 				turn = 2;
 				return new PlayMove(c, player, fromPile, toPile);
 			}
-			/*
-			if (c == null && c2.getRank() == 11) {
-				return new SlapMove(c2, player, toPile, fromPile);
-			} else if(c == null && c2.getRank() >= 0 && c2.getRank() <= 13) {
-				return new SlapMove(c2, table.getPlayer(2), toPile, table.getPile(player2_pile));
-			} else if(c == null) {
-				return new SlapjackDropEventCmd();
-			}
-			*/
+
 			
 			return new SlapjackDropEventCmd();
 		}
@@ -91,6 +85,13 @@ implements Rules, RulesDispatch {
 				else if(c2.getRank() == 11) {
 					return new SlapMove(c2, player, toPile2, fromPile2);
 				}
+				else if(c2.getRank() >= 1 && c2.getRank() <= 13) {
+					System.out.println("center to player1 ");
+					System.out.println("center to player1 ");
+					System.out.println("center to player1 ");
+					System.out.println("center to player1 ");
+
+					return new SlapMove(c2, table.getPlayer(1), toPile2, table.getPile(player1_pile));}
 				else
 					return new SlapjackDropEventCmd();
 			}
@@ -98,15 +99,6 @@ implements Rules, RulesDispatch {
 				turn = 1;
 				return new PlayMove(c, player, fromPile2, toPile2);
 			}
-			/*
-			if (c == null && c2.getRank() == 11) {
-				return new SlapMove(c2, player, toPile2, fromPile2);
-			} else if(c == null && c2.getRank() >= 0 && c2.getRank() <= 13) {
-				return new SlapMove(c2, table.getPlayer(1), toPile2, table.getPile(player1_pile));
-			} else if(c == null) {
-				return new SlapjackDropEventCmd();
-			}
-			*/
 			
 			
 		}
