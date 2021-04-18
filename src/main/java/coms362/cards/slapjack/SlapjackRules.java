@@ -15,7 +15,6 @@ import coms362.cards.events.inbound.InitGameEvent;
 import coms362.cards.events.inbound.NewPartyEvent;
 import coms362.cards.events.inbound.SetQuorumEvent;
 import coms362.cards.fiftytwo.CreatePlayerCmd;
-import coms362.cards.fiftytwo.DropEventCmd;
 import coms362.cards.fiftytwo.PartyRole;
 import coms362.cards.fiftytwo.SetQuorumCmd;
 import coms362.cards.model.Card;
@@ -28,7 +27,6 @@ implements Rules, RulesDispatch {
     public static final String player1_pile = "player1Pile";
     public static final String player2_pile = "player2Pile";
     public static final String center_pile = "centerPile";
-    public int turn = 1; // player turn
 	
 	public SlapjackRules() {
 		registerEvents();
@@ -47,65 +45,40 @@ implements Rules, RulesDispatch {
 		if(player.getScore() == 0)
 		{
 			table.addToScore(player, 26);
-		}	
+		}
+
 		if(player.getPlayerNum() == 1) {
 			Pile fromPile = table.getPile(player1_pile);
 			Pile toPile = table.getPile(center_pile);
+			
 			Card c = fromPile.getCard(e.getId());
 			Card c2 = toPile.getCard(e.getId());
-			
-			if(c == null) {
-				if(c2 == null)
-					return new SlapjackDropEventCmd();
-				else if(c2.getRank() == 11) {
-					return new SlapMove(c2, player, toPile, fromPile);
-				}
-				else if(c2.getRank() >= 1 && c2.getRank() <= 13) {
-					return new SlapMove(c2, table.getPlayer(2), toPile, table.getPile(player2_pile));}
-				else
-					return new SlapjackDropEventCmd();
+			if (c == null && c2.getRank() == 11) {
+				return new SlapMove(c2, player, toPile, fromPile);
+			} else if(c == null && c2.getRank() >= 0 && c2.getRank() <= 13) {
+				return new SlapMove(c2, table.getPlayer(2), toPile, table.getPile(player2_pile));
 			}
-			if(turn == player.getPlayerNum()) {
-				turn = 2;
-				return new PlayMove(c, player, fromPile, toPile);
+			else if(c == null) {
+				return new SlapjackDropEventCmd();
 			}
-
-			
-			return new SlapjackDropEventCmd();
+			return new PlayMove(c, player, fromPile, toPile);	
 		}
-		else if(player.getPlayerNum() == 2) {
+		else {
 			Pile fromPile2 = table.getPile(player2_pile);
 			Pile toPile2 = table.getPile(center_pile);
 			Card c = fromPile2.getCard(e.getId());
 			Card c2 = toPile2.getCard(e.getId());
-			
-			if(c == null) {
-				if(c2 == null)
-					return new SlapjackDropEventCmd();
-				else if(c2.getRank() == 11) {
-					return new SlapMove(c2, player, toPile2, fromPile2);
-				}
-				else if(c2.getRank() >= 1 && c2.getRank() <= 13) {
-					System.out.println("center to player1 ");
-					System.out.println("center to player1 ");
-					System.out.println("center to player1 ");
-					System.out.println("center to player1 ");
-
-					return new SlapMove(c2, table.getPlayer(1), toPile2, table.getPile(player1_pile));}
-				else
-					return new SlapjackDropEventCmd();
+			if (c == null && c2.getRank() == 11) {
+				return new SlapMove(c2, player, toPile2, fromPile2);
+			} else if(c == null && c2.getRank() >= 0 && c2.getRank() <= 13) {
+				return new SlapMove(c2, table.getPlayer(1), toPile2, table.getPile(player1_pile));
+			} else if(c == null) {
+				return new SlapjackDropEventCmd();
 			}
-			if(turn == player.getPlayerNum()) {
-				turn = 1;
-				return new PlayMove(c, player, fromPile2, toPile2);
-			}
-			
-			
+			return new PlayMove(c, player, fromPile2, toPile2);	
 		}
 		
-		return new SlapjackDropEventCmd();
 	}
-		
 
 	@Override
 	public Move apply(NewPartyEvent e, Table table, Player player){
@@ -150,3 +123,4 @@ implements Rules, RulesDispatch {
 		handlers.registerHandler(NewPartyEvent.kId, (Class) NewPartyEvent.class);
 	}
 }
+

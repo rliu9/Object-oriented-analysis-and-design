@@ -21,7 +21,7 @@ public class SlapMove implements Move {
 	private Player p;
 	private Pile fromPile;
 	private Pile toPile;
-	private Table table;
+
 	private Card[] cards;
 
 	public SlapMove(Card c, Player p, Pile fromPile, Pile toPile) {
@@ -35,12 +35,12 @@ public class SlapMove implements Move {
 
 	@Override
 	public void apply(Table table) {
-		this.table = table;
 
 		for (int i = 0; i < cards.length; i++) {
 			table.removeFromPile(SlapjackRules.center_pile, c);
 			
 			// Adjust score for card
+			
 			table.addToScore(p, 1); // Points correlate to number of cards in player's pile
 			table.addToPile(toPile.selector, c);
 		}
