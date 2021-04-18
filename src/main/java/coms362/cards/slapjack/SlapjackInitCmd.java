@@ -65,12 +65,9 @@ public class SlapjackInitCmd implements Move {
                 }
             }
             
-            table.addPile(p1);
-        	//table.getPile(SlapjackRules.player1_pile).setFaceUp(true);            
+            table.addPile(p1);       
             table.addPile(p2);
-            //table.getPile(SlapjackRules.player2_pile).setFaceUp(true);
-            table.addPile(new Pile(SlapjackRules.center_pile, new Location(300,400)));
-            //table.addPile(new Pile(SlapjackRules.center_pile, new Location(300,300)));
+            table.addPile(new Pile(SlapjackRules.center_pile, new Location(300,300)));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -80,15 +77,7 @@ public class SlapjackInitCmd implements Move {
 
 	public void apply(ViewFacade view) {
 		view.send(new SetupTable());
-		if(p1.cards.size() == 0){
-			view.send(new SetGameTitleRemote("Player 1 Wins"));
-		}
-		else if (p2.cards.size() == 0) {
-			view.send(new SetGameTitleRemote("Player 2 Wins"));
-		}
-		else {
-			view.send(new SetGameTitleRemote(title));
-		}
+		view.send(new SetGameTitleRemote(title));
 		
 		for (Player p : players.values()){
 			String role1 = (p.getPlayerNum() == 1) ? "Player1" : "Player "+p.getPlayerNum();

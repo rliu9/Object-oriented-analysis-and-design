@@ -83,7 +83,7 @@ implements Rules, RulesDispatch {
 	}
 	@Override
 	public Move apply(SetQuorumEvent e, Table table, Player player){
-		return new SetQuorumCmd(new Quorum(1, 1));
+		return new SetQuorumCmd(new Quorum(2, 2));
 	}
 	@Override
 	public Move eval(Event nextE, Table table, Player player) {
