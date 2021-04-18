@@ -18,17 +18,21 @@ public class GameFactoryFactory {
     String gameIds[] = {PU52MP, PU52SP,Slapjack};
     List<String> supported = Arrays.asList(gameIds);
 
+    
     public GameFactory getGameFactory(String selector) {
         if (selector.equals(PU52MP)) {
             return new P52MPGameFactory();
-        } else if (selector.equals(PU52SP)) {
+        } 
+        else if (selector.equals(PU52SP)) {
             return new P52SPGameFactory();
-        } else if (selector.equals(Slapjack)) {
+        } 
+        else if (selector.equals(Slapjack)) {
             return new SlapjackGameFactory();
         }
         return null;
     }
 
+    
     public boolean isValidSelection(String gameId) {
         return supported.contains(gameId);
     }
