@@ -7,6 +7,7 @@ import coms362.cards.app.ViewFacade;
 import coms362.cards.events.remote.AddToPileRemote;
 import coms362.cards.events.remote.HideCardRemote;
 import coms362.cards.events.remote.RemoveFromPileRemote;
+import coms362.cards.events.remote.SetGameTitleRemote;
 import coms362.cards.events.remote.ShowCardRemote;
 import coms362.cards.events.remote.ShowPlayerScore;
 import coms362.cards.events.remote.UpdatePileRemote;
@@ -49,6 +50,7 @@ public class PlayMove implements Move {
 			table.setMatchOver(true);
 		}
 	}
+	
 
 	public void apply(ViewFacade view) {
 		view.send(new HideCardRemote(c));
@@ -57,6 +59,12 @@ public class PlayMove implements Move {
 		view.send(new ShowCardRemote(c));
 		view.send(new ShowPlayerScore(p, null));
 		view.send(new UpdatePileRemote(table.getPile(SlapjackRules.center_pile)));
+		if(p.getPlayerNum()==1 && p.getScore() == 0) {
+			view.send(new SetGameTitleRemote("Player 1 wins"));
+		}
+		else if(p.getPlayerNum()==2 && p.getScore() == 0) {
+			view.send(new SetGameTitleRemote("Player 2 wins"));
+		}
 	}
 
 }
