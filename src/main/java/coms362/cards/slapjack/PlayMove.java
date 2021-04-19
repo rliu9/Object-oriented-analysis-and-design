@@ -63,7 +63,7 @@ public class PlayMove implements Move {
 
 		table.getPile(SlapjackRules.center_pile).moveTo(new Location((table.getRandom().nextInt(250)+200),((table.getRandom().nextInt(250)+200))));
 		
-		view.send(new UpdatePileRemote(table.getPile(SlapjackRules.center_pile)));
+		view.send(new UpdatePileRemote(toPile));
 
 		if(p.getPlayerNum()==1 && p.getScore() == 0) {
 			view.send(new SetGameTitleRemote("Player 2 wins"));

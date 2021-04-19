@@ -37,12 +37,12 @@ public class SlapMove implements Move {
 	public void apply(Table table) {
 
 		for (int i = 0; i < cards.length; i++) {
-			table.removeFromPile(SlapjackRules.center_pile, c);
+			table.removeFromPile(SlapjackRules.center_pile, cards[i]);
 			
 			// Adjust score for card
 			
 			table.addToScore(p, 1); // Points correlate to number of cards in player's pile
-			table.addToPile(toPile.selector, c);
+			table.addToPile(toPile.selector, cards[i]);
 		}
 
 		table.getPile(toPile.selector).setFaceUp(false);
@@ -54,8 +54,10 @@ public class SlapMove implements Move {
 			view.send(new HideCardRemote(cards[i]));
 			view.send(new RemoveFromPileRemote(fromPile, cards[i]));
 			view.send(new AddToPileRemote(toPile, cards[i]));
+			view.send(new ShowCardRemote(c));
+			view.send(new ShowPlayerScore(p, null));
 		}
-		view.send(new ShowPlayerScore(p, null));
+		view.send(new UpdatePileRemote(toPile));
 	}
 
 }
