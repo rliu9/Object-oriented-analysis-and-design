@@ -75,14 +75,14 @@ public class SlapjackRules extends RulesDispatchBase implements Rules, RulesDisp
 		} else if (player.getPlayerNum() == 2) {
 			if (c2 != null && turn == 2) {
 				turn = 1;
-				return new PlayMove(c2, player, pile1, center);
+				return new PlayMove(c2, player, pile2, center);
 			} else {
 				if (c == null)
 					return new SlapjackDropEventCmd();
 				else if (c.getRank() == 11) {
-					return new SlapMove(c, player, center, pile1);
+					return new SlapMove(c, player, center, pile2);
 				} else if (c.getRank() >= 1 && c.getRank() <= 13) {
-					return new SlapMove(c, table.getPlayer(2), center, pile2);
+					return new SlapMove(c, table.getPlayer(1), center, pile1);
 				} else {
 					return new SlapjackDropEventCmd();
 				}
